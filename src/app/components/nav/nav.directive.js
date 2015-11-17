@@ -3,12 +3,12 @@
 
   angular
     .module('thiagotarginoGithubIo')
-    .directive('acmeNavbar', acmeNavbar);
+    .directive('acmeNav', acmeNav);
 
   /** @ngInject */
-  function acmeNavbar() {
+  function acmeNav() {
     var directive = {
-      templateUrl: 'app/components/navbar/navbar.html'
+      templateUrl: 'app/components/nav/nav.html'
     };
 
     return directive;

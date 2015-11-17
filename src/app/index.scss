@@ -27,6 +27,13 @@ body { padding-top: 50px; }
   }
 }
 
+.sidebar,
+.main { padding: 30px 0; }
+
+.main {
+  .page-header { margin-top: 0; }
+}
+
 /**
  *  Do not remove the comments below. It's the markers used by gulp-inject to inject
  *  all your sass files automatically

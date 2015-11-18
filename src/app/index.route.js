@@ -14,8 +14,8 @@
       })
       .when('/processos', {
         templateUrl: 'app/processos/processos.html',
-        controller: 'MainController',
-        controllerAs: 'main'
+        controller: 'ProcessosController',
+        controllerAs: 'processos'
       })
       .when('/processo', {
         templateUrl: 'app/processo/processo.html',

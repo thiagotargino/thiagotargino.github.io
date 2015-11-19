@@ -12,6 +12,11 @@
         controller: 'MainController',
         controllerAs: 'main'
       })
+      .when('/relatorio', {
+        templateUrl: 'app/relatorio/relatorio.html',
+        controller: 'RelatorioController',
+        controllerAs: 'relatorio'
+      })
       .when('/processos', {
         templateUrl: 'app/processos/processos.html',
         controller: 'ProcessosController',
@@ -19,11 +24,6 @@
       })
       .when('/processo', {
         templateUrl: 'app/processo/processo.html',
-        controller: 'MainController',
-        controllerAs: 'main'
-      })
-      .when('/relatorios', {
-        templateUrl: 'app/relatorios/relatorios.html',
         controller: 'MainController',
         controllerAs: 'main'
       })

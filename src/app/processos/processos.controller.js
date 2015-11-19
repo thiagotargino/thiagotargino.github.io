@@ -3,32 +3,35 @@
 
   angular
     .module('thiagotarginoGithubIo')
-    .controller('ProcessosController', MainController);
+    .controller('ProcessosController', ProcessosController)
+    .service('ProcessosServices', ProcessosServices);
 
   /** @ngInject */
-  function ProcessosController($log, $http) {
-    var apiHost = 'https://api.github.com/repos/Swiip/generator-gulp-angular';
+  function ProcessosController($scope, ProcessosServices) {
+    var vm = this;
 
-    var service = {
-      apiHost: apiHost,
-      getContributors: getContributors
-    };
+    vm.listaProcessos = [];
 
-    return service;
+    var promise = ProcessosServices.getProcessos();
 
-    function getProcessos() {
+    promise.then(function(data) {
+      // $scope.processos = data.data;
+      vm.listaProcessos = data.data;
+      // return vm.contributors;
+    });
+  }
 
-      return $http.get('processos.json')
-        .then(getProcessosComplete)
-        .catch(getProcessosFailed);
+  function ProcessosServices($http, $q) {
+    var deferred = $q.defer();
 
-      function getProcessosComplete(response) {
-        return response.data;
-      }
+    $http.get('app/processos/processos.json')
+        .then(function(data) {
+          deferred.resolve(data)
+        })
 
-      function getProcessosFailed(error) {
-        $log.error('XHR Failed for getContributors.\n' + angular.toJson(error.data, true));
-      }
+    this.getProcessos = function() {
+      return deferred.promise;
     }
   }
+
 })();

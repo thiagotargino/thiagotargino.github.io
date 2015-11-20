@@ -1,15 +1,14 @@
-# Instalação
+### Instalação
 ```
 npm install && bower install
 ```
 
-# Execução
+### Execução
 ```
 gulp serve
 ```
 
-
-# Build
+### Build
 ```
 gulp
 ```

@@ -7,18 +7,29 @@
     .service('ProcessosServices', ProcessosServices);
 
   /** @ngInject */
-  function ProcessosController($scope, ProcessosServices) {
+  function ProcessosController(ProcessosServices) {
     var vm = this;
+
+    vm.predicate = 'autor';
+    vm.reverse = false;
+    vm.order = order;
 
     vm.listaProcessos = [];
 
     var promise = ProcessosServices.getProcessos();
 
     promise.then(function(data) {
-      // $scope.processos = data.data;
       vm.listaProcessos = data.data;
-      // return vm.contributors;
+
+      // vm.listaProcessos.map(function(elem, index) {
+      //   vm.chanceAcordo = elem.probabilidade_de_acordo - elem.probabilidade_de_perda / 2;
+      // });
     });
+
+    function order(predicate) {
+        vm.reverse = (vm.predicate === predicate) ? !vm.reverse : false;
+        vm.predicate = predicate;
+    }
   }
 
   function ProcessosServices($http, $q) {

@@ -7,16 +7,34 @@
         <acme-nav></acme-nav>
       </div>
 
-      <div class="col-md-9 col-sm-9 main">
+      <div class="col-md-9 col-sm-9 main" ng-controller="ProcessosController as vm">
           <div>
             <h1 class="page-header">Processos</h1>
           </div>
 
-          <div class="row">
-            <div class="col-sm-6 col-md-4" ng-repeat="listaProcesso in processos.listaProcessos">
-                <p>{{ listaProcesso.uf }}</p>
-            </div>
-          </div>
+          <p>
+           <button type="button" class="btn btn-primary" ng-click="vm.order('uf')">Ordenar processos por chance de acordo</button>
+          </p>
+
+          <table class="table table-striped table-hover ">
+            <thead>
+              <tr>
+                <th>Autor</th>
+                <th>Data de recebimento</th>
+                <th>Estado</th>
+                <th>Valor</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="listaProcesso in processos.listaProcessos | orderBy:vm.predicate:vm.reverse">
+                <td>{{ listaProcesso.autor }}</td>
+                <td>{{ listaProcesso.data_recebimento | date:'dd/MM/yyyy' }}</td>
+                <td>{{ listaProcesso.uf }}</td>
+                <td data-sort="{{ listaProcesso.probabilidade_de_acordo + listaProcesso.probabilidade_de_perda / 2 }}">{{ listaProcesso.valor }}</td>
+              </tr>
+            </tbody>
+          </table>
       </div>
 
     </div>

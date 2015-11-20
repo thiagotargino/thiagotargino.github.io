@@ -11,6 +11,64 @@
           <div>
             <h1 class="page-header">Adicionar Processo</h1>
           </div>
+
+
+
+          <div class="well bs-component">
+              <form class="form-horizontal" name="formProcesso">
+                <fieldset>
+                  <legend>Preencha os campos abaixo:</legend>
+
+                  <div class="form-group" ng-class="{ 'has-error' : formProcesso.inputProcesso.$invalid && !formProcesso.inputProcesso.$pristine }">
+                    <label for="inputProcesso" class="col-lg-3 control-label">Nome do processo </label>
+                    <div class="col-lg-9">
+                      <input type="text" class="form-control" id="input-processo" name="inputProcesso" ng-model="user.nome" placeholder="Nome do processo" required>
+                      <span class="help-block" ng-show="formProcesso.inputProcesso.$invalid && !formProcesso.inputProcesso.$pristine">Nome do processo é requerido.</span>
+                    </div>
+                  </div>
+
+                  <div class="form-group" ng-class="{ 'has-error' : formProcesso.inputAutor.$invalid && !formProcesso.inputAutor.$pristine }">
+                    <label for="inputAutor" class="col-lg-3 control-label">Nome do Autor </label>
+                    <div class="col-lg-9">
+                      <input type="text" class="form-control" id="inputAutor" name="inputAutor" ng-model="user.autor" placeholder="Nome do Autor" required>
+                      <span class="help-block" ng-show="formProcesso.inputAutor.$invalid && !formProcesso.inputAutor.$pristine">Nome do autor é requerido.</span>
+                    </div>
+                  </div>
+
+                  <div class="form-group" ng-class="{ 'has-error' : formProcesso.inputComarca.$invalid && !formProcesso.inputComarca.$pristine }">
+                    <label for="inputComarca" class="col-lg-3 control-label">Comarca </label>
+                    <div class="col-lg-9">
+                      <input type="text" class="form-control" id="inputComarca" name="inputComarca" ng-model="user.comarca" placeholder="Comarca" required>
+                      <span class="help-block" ng-show="formProcesso.inputComarca.$invalid && !formProcesso.inputComarca.$pristine">Comarca é requerida.</span>
+                    </div>
+                  </div>
+
+                  <div class="form-group" ng-class="{ 'has-error' : formProcesso.inputData.$invalid && !formProcesso.inputData.$pristine }">
+                    <label for="inputData" class="col-lg-3 control-label">Data de Recebimento </label>
+                    <div class="col-lg-9">
+                      <input type="text" class="form-control" id="inputData" name="inputData" placeholder="Data de Recebimento" ng-model="user.data"  required ui-date-mask="short">
+                      <span class="help-block" ng-show="formProcesso.inputData.$invalid && !formProcesso.inputData.$pristine">Data de recebimento é requerida.</span>
+                    </div>
+                  </div>
+
+                  <div class="form-group" ng-class="{ 'has-error' : formProcesso.inputValor.$invalid && !formProcesso.inputValor.$pristine }">
+                    <label for="inputValor" class="col-lg-3 control-label">Valor </label>
+                    <div class="col-lg-9">
+                      <input type="text" class="form-control" id="input-valor" name="inputValor" placeholder="Valor" ng-model="user.valor" ui-money-mask="2" required>
+                      <span class="help-block" ng-show="formProcesso.inputValor.$invalid && !formProcesso.inputValor.$pristine">Data de recebimento é requerida.</span>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-lg-9 col-lg-offset-3">
+                      <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                  </div>
+                </fieldset>
+              </form>
+
+
+
       </div>
     </div>
   </div>

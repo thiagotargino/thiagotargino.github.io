@@ -8,9 +8,9 @@
   function routeConfig($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'app/relatorio/relatorio.html',
-        controller: 'RelatorioController',
-        controllerAs: 'relatorio'
+        templateUrl: 'app/processos/processos.html',
+        controller: 'ProcessosController',
+        controllerAs: 'processos'
       })
       // .when('/', {
       //   templateUrl: 'app/main/main.html',

@@ -27,7 +27,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="listaProcesso in processos.listaProcessos | orderBy:vm.predicate:vm.reverse">
+              <tr ng-repeat="listaProcesso in processos.listaProcessos | orderBy:vm.predicate:vm.reverse | limitTo: 50">
                 <td>{{ listaProcesso.autor }}</td>
                 <td>{{ listaProcesso.data_recebimento | date:'dd/MM/yyyy' }}</td>
                 <td>{{ listaProcesso.uf }}</td>

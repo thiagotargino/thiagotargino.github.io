@@ -13,14 +13,23 @@
           </div>
 
           <!-- <div class="row">
-            <div class="col-sm-6 col-md-4" ng-repeat="listaRelatorio in relatorio.listaRelatorios">
-                <p>{{ listaRelatorio.valor }}</p>
+            <div class="col-sm-6 col-md-4" ng-repeat="listaRelatorio in relatorio.listaRelatorios | limitTo: 100">
+                <p>{{ listaRelatorio.data }}</p>
             </div>
           </div> -->
 
-          <!-- <div ng-controller="RelatorioController">
-              <nvd3 options="options" data="data"></nvd3>
-          </div> -->
+          <div ng-controller="RelatorioController as vm">
+               <nvd3-pie-chart
+                data="vm.dados"
+                  x="vm.xFunction()"
+                  y="vm.yFunction()"
+                  width="550"
+                  height="350"
+                  showLegend="true"
+                  noData = "Dados nao disponiveis">
+                  <svg></svg>
+              </nvd3-pie-chart>
+          </div>
       </div>
     </div>
   </div>

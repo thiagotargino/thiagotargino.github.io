@@ -9,26 +9,41 @@
 
       <div class="col-md-9 col-sm-9 main">
           <div>
-            <h1 class="page-header">Relatório</h1>
+            <h1 class="page-header">Dashboard</h1>
           </div>
 
-          <!-- <div class="row">
-            <div class="col-sm-6 col-md-4" ng-repeat="listaRelatorio in relatorio.listaRelatorios | limitTo: 100">
-                <p>{{ listaRelatorio.data }}</p>
-            </div>
-          </div> -->
-
           <div ng-controller="RelatorioController as vm">
-               <nvd3-pie-chart
-                data="vm.dados"
-                  x="vm.xFunction()"
-                  y="vm.yFunction()"
-                  width="550"
-                  height="350"
-                  showLegend="true"
-                  noData = "Dados nao disponiveis">
-                  <svg></svg>
-              </nvd3-pie-chart>
+              <div class="col-md-6 col-sm-6">
+                <h2>Montante de valores em 2015</h2>
+                <svg id="chart1" class="mypiechart"></svg>
+              </div>
+
+              <div class="col-md-6 col-sm-6">
+                <h2>Montante de valores em 2014</h2>
+                <svg id="chart2" class="mypiechart"></svg>
+              </div>
+          </div>
+
+          <div>
+            <h2>Últimos lançamentos</h2>
+            <table class="table table-striped table-hover ">
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Estado</th>
+                  <th>Comarca</th>
+                  <th>Valor</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="listaRelatorio in relatorio.listaRelatorios | limitTo: 10">
+                  <td>{{ listaRelatorio.data | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ listaRelatorio.uf }}</td>
+                  <td>{{ listaRelatorio.comarca }}</td>
+                  <td>{{ listaRelatorio.valor }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
       </div>
     </div>

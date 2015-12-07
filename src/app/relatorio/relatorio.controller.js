@@ -9,63 +9,75 @@
   /** @ngInject */
   function RelatorioController($scope, RelatorioServices) {
     var vm = this;
-
     vm.listaRelatorios = [];
-
-    vm.data = [
-      {
-        "key": "PE",
-        "y": 9
-     },
-
-     {
-        "key": "BA",
-        "y": 12
-     }
-    ];
-
     var promise = RelatorioServices.getRelatorio();
 
-    vm.dados = [];
-
-    console.log(vm);
-
     promise.then(function(data) {
+      // var dados = data.data;
       vm.listaRelatorios = data.data;
 
-      for (var i = 20 - 1; i >= 0; i--) {
+      // Copiando dados do json e aplicando formatacao
+      var smallData = vm.listaRelatorios.map(function(d) {
+        return {
+          indice: d.indice,
+          data: d.data.split("-")[0],
+          uf: d.uf,
+          valor: d.valor.replace(/[$,]/g, ''),
+          ativo: d.ativo
+        };
+      });
 
-        // dados.push('1');
-        // vm.dados.push( {'key': vm.listaRelatorios[i].uf, 'y': vm.listaRelatorios[i].indice} );
-      }
+      // Aninhando informacoes
+      var valuesByUf = d3.nest()
+      .key(function(d) { return d.data.split("-")[0] })
+      .key(function(d) { return d.uf })
+      .rollup(function(v) { return d3.sum(v, function(d) { return d.valor; }); })
+      .entries(smallData);
 
-      // for (var i = 0; i < vm.listaRelatorios.length; i++) {
-      // for (var i = 0; i < 20; i++) {
-      //   console.log( vm.listaRelatorios[i] );
-      // };
-      //
-      // vm.dadosTratados = JSON.stringify(vm.dados);
-      // console.log(vm.dadosTratados);
+      var values2015 = valuesByUf.filter(function(d) { return d.key == '2015'  })
+      .map(function(d) {
+        return d.values;
+      });
+
+      var values2014 = valuesByUf.filter(function(d) { return d.key == '2014'  })
+      .map(function(d) {
+        return d.values;
+      });
+
+      // Plotando grafico 2015
+      nv.addGraph(function() {
+        var chart = nv.models.pieChart()
+            .x(function(d) { return d.key })
+            .y(function(d) { return d.values })
+            .showLabels(true);
+
+          d3.select("#chart1")
+              .attr("width", 500)
+              .attr("height", 400)
+              .datum(values2015[0])
+              .transition().duration(350)
+              .call(chart);
+
+        return chart;
+      });
+
+      // Plotando grafico 2014
+      nv.addGraph(function() {
+        var chart = nv.models.pieChart()
+            .x(function(d) { return d.key })
+            .y(function(d) { return d.values })
+            .showLabels(true);
+
+          d3.select("#chart2")
+              .attr("width", 500)
+              .attr("height", 400)
+              .datum(values2014[0])
+              .transition().duration(350)
+              .call(chart);
+
+        return chart;
+      });
     });
-
-    vm.xFunction = function() {
-      return function(d) {
-        return d.key;
-        // return d3.time.format('%Y-%m-%d')(new Date(d));
-
-        // var monthNameFormat = d3.time.format("%B");
-        // var yearNameFormat = d3.time.format("%y");
-        // console.log( monthNameFormat(new Date(2014, 0, 1))  );
-      }
-    }
-
-    vm.yFunction = function() {
-      return function(d) {
-        return d.y;
-        // console.log(y);
-      }
-    }
-
   }
 
   function RelatorioServices($http, $q) {
@@ -80,5 +92,4 @@
       return deferred.promise;
     }
   }
-
 })();
